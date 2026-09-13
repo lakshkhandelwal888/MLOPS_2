@@ -3,7 +3,9 @@ from sklearn.datasets import load_breast_cancer
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
+
 from sklearn.metrics import (
     accuracy_score,
     precision_score,
@@ -77,3 +79,27 @@ print("\nConfusion Matrix:")
 print(tree_confusion)
 print("\nClassification Report:")
 print(classification_report(y_test, tree_predictions))
+
+
+forest_model = RandomForestClassifier(random_state=42)
+
+forest_model.fit(X_train, y_train)
+
+forest_predictions = forest_model.predict(X_test)
+
+forest_accuracy = accuracy_score(y_test, forest_predictions)
+forest_precision = precision_score(y_test, forest_predictions)
+forest_recall = recall_score(y_test, forest_predictions)
+forest_f1 = f1_score(y_test, forest_predictions)
+
+forest_confusion = confusion_matrix(y_test, forest_predictions)
+
+print("\nRandom Forest")
+print("Accuracy:", forest_accuracy)
+print("Precision:", forest_precision)
+print("Recall:", forest_recall)
+print("F1 Score:", forest_f1)
+print("\nConfusion Matrix:")
+print(forest_confusion)
+print("\nClassification Report:")
+print(classification_report(y_test, forest_predictions))
