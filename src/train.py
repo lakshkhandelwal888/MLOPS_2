@@ -62,7 +62,12 @@ with open("classification_report.txt", "w") as file:
     mlflow.log_artifact("confusion_matrix.txt")
     mlflow.log_artifact("classification_report.txt")
 
-    mlflow.log_param("model", "Logistic Regression")
+    mlflow.log_params({
+    "model": "Logistic Regression",
+    "C": model.C,
+    "solver": model.solver,
+    "max_iter": model.max_iter
+})
     mlflow.log_metric("accuracy", accuracy)
     mlflow.log_metric("precision", precision)
     mlflow.log_metric("recall", recall)
@@ -103,7 +108,13 @@ with mlflow.start_run(run_name="Decision Tree"):
     with open("tree_classification_report.txt", "w") as file:
         file.write(tree_report)
 
-    mlflow.log_param("model", "Decision Tree")
+    mlflow.log_params({
+    "model": "Decision Tree",
+    "criterion": tree_model.criterion,
+    "max_depth": tree_model.max_depth,
+    "min_samples_split": tree_model.min_samples_split,
+    "random_state": tree_model.random_state
+})
     mlflow.log_metric("accuracy", tree_accuracy)
     mlflow.log_metric("precision", tree_precision)
     mlflow.log_metric("recall", tree_recall)
@@ -145,7 +156,13 @@ with mlflow.start_run(run_name="Random Forest"):
     with open("forest_classification_report.txt", "w") as file:
         file.write(forest_report)
 
-    mlflow.log_param("model", "Random Forest")
+    mlflow.log_params({
+    "model": "Random Forest",
+    "n_estimators": forest_model.n_estimators,
+    "criterion": forest_model.criterion,
+    "max_depth": forest_model.max_depth,
+    "random_state": forest_model.random_state
+})
     mlflow.log_metric("accuracy", forest_accuracy)
     mlflow.log_metric("precision", forest_precision)
     mlflow.log_metric("recall", forest_recall)
