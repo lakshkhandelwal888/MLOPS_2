@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.datasets import load_breast_cancer
 from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
 dataset = load_breast_cancer()
@@ -23,3 +24,7 @@ scaler = StandardScaler()
 
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
+
+model = LogisticRegression()
+model.fit(X_train, y_train)
+mypredictions = model.predict(X_test)
